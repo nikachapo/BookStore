@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chapo.bookstore">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookStore">
         <activity
-            android:name=".bookdetails.BookDetailsActivity"
+            android:name=".bookdetails.presentation.BookDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".main.MainActivity"

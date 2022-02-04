@@ -2,6 +2,7 @@ package com.chapo.bookstore.bookdetails
 
 import android.content.Context
 import android.content.Intent
+import com.chapo.bookstore.bookdetails.presentation.BookDetailsActivity
 import com.chapo.navigation.ActivityDestination
 
 class BookDetailsDestination(
