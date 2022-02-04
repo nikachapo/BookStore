@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "BookStore"
 include ':app'
+include ':navigation'
