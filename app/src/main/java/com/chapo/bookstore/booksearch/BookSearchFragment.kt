@@ -1,19 +1,20 @@
 package com.chapo.bookstore.booksearch
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.chapo.bookstore.R
+import com.chapo.bookstore.core.viewBinding
+import com.chapo.bookstore.databinding.FragmentBookSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class BookSearchFragment : Fragment() {
+@AndroidEntryPoint
+class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_book_search, container, false)
+    private val viewBinding: FragmentBookSearchBinding by viewBinding(FragmentBookSearchBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewBinding.root
     }
-
 }

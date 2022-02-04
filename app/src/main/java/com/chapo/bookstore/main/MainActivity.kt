@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.chapo.bookstore.R
 import com.chapo.bookstore.booksearch.BookSearchDestination
-import com.chapo.bookstore.core.activityViewBinding
+import com.chapo.bookstore.core.viewBinding
 import com.chapo.bookstore.databinding.ActivityMainBinding
 import com.chapo.bookstore.savedbooks.SavedBooksDestination
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val binding by activityViewBinding(ActivityMainBinding::inflate)
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     @Inject
     lateinit var mainNavigator: MainNavigator

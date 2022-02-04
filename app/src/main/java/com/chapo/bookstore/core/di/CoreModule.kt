@@ -1,4 +1,4 @@
-package com.chapo.bookstore.di
+package com.chapo.bookstore.core.di
 
 import com.chapo.navigation.DefaultNavigator
 import com.chapo.navigation.Navigator
