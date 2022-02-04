@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  Text sizes  -->
+    <dimen name="text_small">10sp</dimen>
+    <dimen name="text_regular">12sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+    <dimen name="text_header1">24sp</dimen>
+    <dimen name="text_header2">20sp</dimen>
+
+    <!--  core  -->
+    <dimen name="edge_size">8dp</dimen>
+
+
+</resources>
