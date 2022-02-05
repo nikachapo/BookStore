@@ -3,11 +3,11 @@ package com.chapo.bookstore.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.chapo.bookstore.R
-import com.chapo.bookstore.booksearch.BookSearchDestination
+import com.chapo.bookstore.features.booksearch.BookSearchDestination
 import com.chapo.bookstore.core.di.MainNav
-import com.chapo.bookstore.core.viewBinding
+import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.ActivityMainBinding
-import com.chapo.bookstore.savedbooks.SavedBooksDestination
+import com.chapo.bookstore.features.savedbooks.presentation.SavedBooksDestination
 import com.chapo.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package com.chapo.bookstore.core.data.api.interceptors
 
-import com.chapo.bookstore.core.Logger
+import com.chapo.bookstore.core.utils.Logger
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Inject
 

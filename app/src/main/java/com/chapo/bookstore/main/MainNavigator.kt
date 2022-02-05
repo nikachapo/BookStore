@@ -3,10 +3,8 @@ package com.chapo.bookstore.main
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.chapo.bookstore.R
-import com.chapo.bookstore.bookdetails.BookDetailsDestination
-import com.chapo.bookstore.booksearch.BookSearchDestination
-import com.chapo.bookstore.savedbooks.SavedBooksDestination
-import com.chapo.navigation.Destination
+import com.chapo.bookstore.features.booksearch.BookSearchDestination
+import com.chapo.bookstore.features.savedbooks.presentation.SavedBooksDestination
 import com.chapo.navigation.Navigator
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject

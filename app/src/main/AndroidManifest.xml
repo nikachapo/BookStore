@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookStore">
         <activity
-            android:name=".bookdetails.presentation.BookDetailsActivity"
+            android:name="com.chapo.bookstore.features.bookdetails.presentation.BookDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".main.MainActivity"
