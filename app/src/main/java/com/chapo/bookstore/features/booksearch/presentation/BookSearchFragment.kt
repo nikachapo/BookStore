@@ -1,7 +1,10 @@
 package com.chapo.bookstore.features.booksearch.presentation
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -47,8 +50,29 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
         }
         lifecycleScope.launchWhenCreated {
             viewModel.errorState.collectLatest {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                it?.let {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_appbar_nav_menu, menu)
+        val searchItem = menu.findItem(R.id.mnu_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.onQuerySubmitted(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.onQueryChanged(newText)
+                return false
+            }
+
+        })
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

@@ -50,4 +50,11 @@ class BookSearchVM @Inject constructor(
             pager.loadNextPage()
         }
     }
+
+    fun onQueryChanged(newText: String?) {
+    }
+
+    fun onQuerySubmitted(query: String?) {
+
+    }
 }
