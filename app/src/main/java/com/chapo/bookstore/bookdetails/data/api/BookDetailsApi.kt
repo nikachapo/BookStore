@@ -9,5 +9,5 @@ import retrofit2.http.Path
 interface BookDetailsApi {
 
     @GET(ApiEndPoints.DETAILS + "/{isbn}")
-    suspend fun getBookDetails(@Path("isbn") isbn: String): Response<BookDetailsDto>
+    suspend fun getBookDetails(@Path("isbn") isbn: String): BookDetailsDto
 }

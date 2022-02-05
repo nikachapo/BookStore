@@ -1,9 +1,7 @@
 package com.chapo.bookstore.paging
 
-import com.chapo.bookstore.core.domain.Resource
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
-import com.chapo.bookstore.core.updateValue
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
@@ -22,23 +20,18 @@ class BooksPager @Inject constructor(
     override var currentKey: Int = startingKey
 
     override val nextKey: Int
-        get() {
-            return ++currentKey
-        }
+        get() = ++currentKey
 
     override val previousKey: Int? = if (currentKey == 0) null else currentKey - 1
 
+    override fun hasNextPage(page: BookPage): Boolean {
+        return page.books.isEmpty()
+    }
+
     override suspend fun loadPage(page: Int) {
-        booksRepository.getBooksWithPage(page).also {
-            if (it is Resource.Success) {
-                if (it.data.total == 0) {
-                    throw NoMorePageException()
-                }
-                addToCachedList(it.data)
-            } else {
-                throw LoadingException()
-            }
-        }
+        val bookPage = booksRepository.getBooksWithPage(page)
+        if (hasNextPage(bookPage)) throw NoMorePageException()
+        addToCachedList(bookPage)
     }
 
     private suspend fun addToCachedList(bookPage: BookPage) {
@@ -49,14 +42,4 @@ class BooksPager @Inject constructor(
         pageListFlow.emit(list)
     }
 
-//    private fun cachedOrNull(page: Int): BookPage? {
-//        if (pageListFlow.value.size == 0) return null
-//
-//        pageListFlow.value.forEach {
-//            if (it.page == page) {
-//                return it
-//            }
-//        }
-//        return null
-//    }
 }

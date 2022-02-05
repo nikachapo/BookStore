@@ -34,7 +34,7 @@ class BookAdapter(private val onBookClicked: (Book) -> Unit) :
 
     override fun getItemCount() = differ.currentList.size
 
-    fun submitData(books: List<Book>?) {
+    fun submitData(books: List<Book>) {
         differ.submitList(books)
     }
 

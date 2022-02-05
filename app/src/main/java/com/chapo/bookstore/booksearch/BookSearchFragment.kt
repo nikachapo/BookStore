@@ -2,6 +2,7 @@ package com.chapo.bookstore.booksearch
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +43,11 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
         lifecycleScope.launchWhenStarted {
             viewModel.pageStateFlow.collectLatest {
                 bookAdapter.submitData(it)
+            }
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.errorState.collectLatest {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
     }

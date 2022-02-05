@@ -11,11 +11,11 @@ interface BooksApi {
     suspend fun getBookWithPage(
         @Path("page") page: String,
         @Path("query") query: String = "Algo"
-    ): Response<BookPageDto>
+    ): BookPageDto
 
     @GET(ApiEndPoints.SEARCH_ENDPOINT + "/{query}/{page}")
     suspend fun searchBook(
         @Path("page") page: String,
         @Path("query") query: String
-    ): Response<BookPageDto>
+    ): BookPageDto
 }

@@ -19,6 +19,8 @@ interface Pager<Key : Any, PageModel : Any> {
     val isSpace: Boolean
         get() = pageListFlow.value.size < pageSize
 
+    fun hasNextPage(page: PageModel): Boolean
+
     suspend fun loadStartingPage() = loadPage(startingKey)
 
     suspend fun loadPage(page: Key)

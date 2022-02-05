@@ -2,13 +2,13 @@ package com.chapo.bookstore.booksearch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chapo.bookstore.R
+import com.chapo.bookstore.core.ErrorHandler
 import com.chapo.bookstore.core.domain.NetworkException
 import com.chapo.bookstore.core.domain.NetworkUnavailableException
-import com.chapo.bookstore.core.domain.Resource
 import com.chapo.bookstore.core.domain.UnknownException
 import com.chapo.bookstore.core.domain.models.Book
 import com.chapo.bookstore.core.domain.models.BookPage
-import com.chapo.bookstore.paging.LoadingException
 import com.chapo.bookstore.paging.NoMorePageException
 import com.chapo.bookstore.paging.Pager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,38 +22,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookSearchVM @Inject constructor(
-    private val pager: Pager<Int, BookPage>
+    private val pager: Pager<Int, BookPage>,
+    private val errorHandler: ErrorHandler
 ) : ViewModel() {
 
-    private val _pageStateFlow = MutableStateFlow<List<Book>?>(null)
-
+    private val _pageStateFlow = MutableStateFlow<List<Book>>(listOf())
     val pageStateFlow = _pageStateFlow.asStateFlow()
 
+    val errorState = errorHandler.showErrorState
+
     init {
+        errorHandler.addExceptions(NoMorePageException::class, R.string.app_name)
+        loadFirstPage()
+    }
 
-        val handler = CoroutineExceptionHandler { _, exception ->
-            when (exception) {
-                is NoMorePageException -> {
-
-                }
-                is LoadingException -> {
-
-                }
-                is NetworkException -> {
-
-                }
-                is NetworkUnavailableException -> {
-
-                }
-                is UnknownException -> {
-
-                }
-            }
-        }
-
-        viewModelScope.launch(handler) {
+    private fun loadFirstPage() {
+        viewModelScope.launch(errorHandler.coroutineExceptionHandler) {
             pager.loadStartingPage()
-
             pager.pageListFlow.map { bookPage ->
                 val books = mutableListOf<Book>()
                 bookPage.forEach { books.addAll(it.books) }
@@ -62,8 +47,6 @@ class BookSearchVM @Inject constructor(
                 _pageStateFlow.emit(it)
             }
         }
-
-
     }
 
     fun loadNextPage() {
