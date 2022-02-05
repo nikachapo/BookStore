@@ -1,4 +1,4 @@
-package com.chapo.navigation
+package com.chapo.navigation.navigator
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity

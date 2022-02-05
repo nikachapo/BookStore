@@ -1,4 +1,4 @@
-package com.chapo.navigation
+package com.chapo.navigation.destination
 
 import android.content.Context
 import android.content.Intent

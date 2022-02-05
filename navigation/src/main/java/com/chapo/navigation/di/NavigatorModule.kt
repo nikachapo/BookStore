@@ -1,7 +1,7 @@
 package com.chapo.navigation.di
 
-import com.chapo.navigation.DefaultNavigator
-import com.chapo.navigation.Navigator
+import com.chapo.navigation.navigator.DefaultNavigator
+import com.chapo.navigation.navigator.Navigator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

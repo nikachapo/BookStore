@@ -1,7 +1,7 @@
 package com.chapo.bookstore.core.di
 
 import com.chapo.bookstore.main.MainNavigator
-import com.chapo.navigation.Navigator
+import com.chapo.navigation.navigator.Navigator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

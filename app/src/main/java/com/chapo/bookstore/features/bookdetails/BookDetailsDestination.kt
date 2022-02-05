@@ -3,7 +3,7 @@ package com.chapo.bookstore.features.bookdetails
 import android.content.Context
 import android.content.Intent
 import com.chapo.bookstore.features.bookdetails.presentation.BookDetailsActivity
-import com.chapo.navigation.ActivityDestination
+import com.chapo.navigation.destination.ActivityDestination
 
 class BookDetailsDestination(
     private val context: Context,

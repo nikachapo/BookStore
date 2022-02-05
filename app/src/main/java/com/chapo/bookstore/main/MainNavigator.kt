@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.chapo.bookstore.R
 import com.chapo.bookstore.features.booksearch.BookSearchDestination
 import com.chapo.bookstore.features.savedbooks.presentation.SavedBooksDestination
-import com.chapo.navigation.Navigator
+import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 

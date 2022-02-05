@@ -8,7 +8,7 @@ import com.chapo.bookstore.core.di.MainNav
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.ActivityMainBinding
 import com.chapo.bookstore.features.savedbooks.presentation.SavedBooksDestination
-import com.chapo.navigation.Navigator
+import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -3,7 +3,7 @@ package com.chapo.bookstore.features.savedbooks.presentation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.chapo.bookstore.R
-import com.chapo.navigation.FragmentDestination
+import com.chapo.navigation.destination.FragmentDestination
 
 class SavedBooksDestination(fragmentManager: FragmentManager) :
     FragmentDestination(R.id.fragment_container, fragmentManager) {

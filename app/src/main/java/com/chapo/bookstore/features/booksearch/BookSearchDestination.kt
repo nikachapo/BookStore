@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.chapo.bookstore.R
 import com.chapo.bookstore.features.booksearch.presentation.BookSearchFragment
-import com.chapo.navigation.FragmentDestination
+import com.chapo.navigation.destination.FragmentDestination
 
 class BookSearchDestination(fragmentManager: FragmentManager) :
     FragmentDestination(R.id.fragment_container, fragmentManager) {

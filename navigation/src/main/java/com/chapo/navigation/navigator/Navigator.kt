@@ -1,8 +1,11 @@
-package com.chapo.navigation
+package com.chapo.navigation.navigator
 
 import androidx.activity.addCallback
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
+import com.chapo.navigation.destination.Destination
+import com.chapo.navigation.destination.DestinationChangedListener
+import com.chapo.navigation.destination.NoDestination
 
 abstract class Navigator(protected val activity: AppCompatActivity) {
 

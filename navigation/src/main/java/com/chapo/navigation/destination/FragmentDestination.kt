@@ -1,4 +1,4 @@
-package com.chapo.navigation
+package com.chapo.navigation.destination
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
