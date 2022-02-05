@@ -1,6 +1,6 @@
 package com.chapo.bookstore.core.domain.repositories
 
-import com.chapo.bookstore.core.data.api.util.Resource
+import com.chapo.bookstore.core.domain.Resource
 import com.chapo.bookstore.core.domain.models.BookPage
 
 interface IBooksRepository {

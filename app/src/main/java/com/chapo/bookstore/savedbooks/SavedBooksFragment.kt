@@ -9,7 +9,7 @@ import com.chapo.bookstore.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SavedBooksFragment : Fragment() {
+class SavedBooksFragment : Fragment(R.layout.fragment_saved_books) {
 
 //    @Inject
 //    lateinit var navigator: Navigator

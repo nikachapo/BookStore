@@ -3,7 +3,7 @@ package com.chapo.bookstore.core.data
 import com.chapo.bookstore.core.data.api.BooksApi
 import com.chapo.bookstore.core.data.api.dtos.mappers.BookPageMapper
 import com.chapo.bookstore.core.data.api.util.ApiHelper
-import com.chapo.bookstore.core.data.api.util.Resource
+import com.chapo.bookstore.core.domain.Resource
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
 import javax.inject.Inject

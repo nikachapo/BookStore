@@ -6,8 +6,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
+
+inline fun <T> MutableStateFlow<T>.updateValue(block: T.() -> Unit) {
+    this.value ?: return
+    this.value = this.value?.apply(block)!!
+
+}
 
 fun <T : ViewBinding> Activity.viewBinding(createViewBinding: (LayoutInflater) -> T): ReadOnlyProperty<Any?, T> =
     object : ReadOnlyProperty<Any?, T> {
