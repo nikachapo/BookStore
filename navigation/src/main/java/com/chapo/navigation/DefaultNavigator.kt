@@ -9,4 +9,6 @@ class DefaultNavigator @Inject constructor(@ActivityContext context: Context) :
     Navigator(context as AppCompatActivity) {
 
     override fun navigateBack() = Unit
+
+    override fun navigateToStartingDestination() = Unit
 }

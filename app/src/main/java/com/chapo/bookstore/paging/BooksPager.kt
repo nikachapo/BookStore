@@ -9,7 +9,7 @@ class BooksPager @Inject constructor(
     private val booksRepository: IBooksRepository
 ) : Pager<Int, BookPage> {
 
-    override val pageSize: Int = 5
+    override val cachedPagesSize: Int = 20
 
     override val pageListFlow: MutableStateFlow<MutableList<BookPage>> = MutableStateFlow(
         mutableListOf()
@@ -21,8 +21,6 @@ class BooksPager @Inject constructor(
 
     override val nextKey: Int
         get() = ++currentKey
-
-    override val previousKey: Int? = if (currentKey == 0) null else currentKey - 1
 
     override fun hasNextPage(page: BookPage): Boolean {
         return page.books.isEmpty()

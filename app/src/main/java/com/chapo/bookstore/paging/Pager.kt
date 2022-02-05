@@ -6,18 +6,16 @@ interface Pager<Key : Any, PageModel : Any> {
 
     val pageListFlow: StateFlow<MutableList<PageModel>>
 
-    val pageSize: Int
+    val cachedPagesSize: Int
 
     val startingKey: Key
 
     var currentKey: Key
 
-    val previousKey: Key?
-
     val nextKey: Key
 
     val isSpace: Boolean
-        get() = pageListFlow.value.size < pageSize
+        get() = pageListFlow.value.size < cachedPagesSize
 
     fun hasNextPage(page: PageModel): Boolean
 
@@ -26,6 +24,4 @@ interface Pager<Key : Any, PageModel : Any> {
     suspend fun loadPage(page: Key)
 
     suspend fun loadNextPage() = loadPage(nextKey)
-
-    suspend fun loadPreviousPage() = previousKey?.let { loadPage(it) }
 }

@@ -28,6 +28,8 @@ abstract class Navigator(protected val activity: AppCompatActivity) {
 
     abstract fun navigateBack()
 
+    abstract fun navigateToStartingDestination()
+
     protected fun onSelectMenuItem(@IdRes itemId: Int): Boolean {
         return if (itemId == currentMenuItemId) {
             false
@@ -43,4 +45,6 @@ abstract class Navigator(protected val activity: AppCompatActivity) {
             destination.moveToDestination()
         }
     }
+
+    open fun selectMenuItem(itemId: Int): Boolean = false
 }

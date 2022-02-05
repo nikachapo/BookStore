@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.chapo.bookstore.R
 import com.chapo.bookstore.booksearch.BookSearchDestination
+import com.chapo.bookstore.core.di.MainNav
 import com.chapo.bookstore.core.viewBinding
 import com.chapo.bookstore.databinding.ActivityMainBinding
 import com.chapo.bookstore.savedbooks.SavedBooksDestination
+import com.chapo.navigation.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -16,7 +18,8 @@ class MainActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
     @Inject
-    lateinit var mainNavigator: MainNavigator
+    @MainNav
+    lateinit var mainNavigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             mainNavigator.selectMenuItem(menuItem.itemId)
         }
-
         mainNavigator.setOnDestinationChangedListener { destination ->
             when (destination) {
                 is BookSearchDestination -> {
@@ -40,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        mainNavigator.navigateToSearchBooks()
+        mainNavigator.navigateToStartingDestination()
     }
 }
