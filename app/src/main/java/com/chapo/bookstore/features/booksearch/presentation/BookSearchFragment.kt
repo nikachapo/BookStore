@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chapo.bookstore.R
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
@@ -26,9 +27,8 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
         val bookAdapter = BookAdapter {
 
         }
-
+        binding.rvBooks.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvBooks.adapter = bookAdapter
-
 
         binding.rvBooks.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

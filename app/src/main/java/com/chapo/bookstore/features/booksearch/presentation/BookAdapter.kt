@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.chapo.bookstore.core.domain.models.Book
 import com.chapo.bookstore.databinding.ItemBookBinding
 
@@ -46,6 +47,7 @@ class BookAdapter(private val onBookClicked: (Book) -> Unit) :
                 onBookClicked(book)
             }
             binding.tvTitle.text = book.title
+            binding.ivImage.load(book.imageUrl)
         }
 
     }
