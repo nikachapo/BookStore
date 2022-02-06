@@ -1,5 +1,6 @@
 package com.chapo.bookstore.core.data.api.dtos.mappers
 
+import com.chapo.bookstore.core.data.Mapper
 import com.chapo.bookstore.core.data.api.dtos.BookPageDto
 import com.chapo.bookstore.core.domain.models.BookPage
 import java.lang.Exception
@@ -8,11 +9,11 @@ import javax.inject.Inject
 
 class BookPageMapper @Inject constructor(
     private val bookMapper: BookMapper
-) : ApiMapper<BookPageDto, BookPage> {
+) : Mapper<BookPageDto, BookPage> {
 
-    override fun mapToDomain(dto: BookPageDto): BookPage {
+    override fun mapToDomain(from: BookPageDto): BookPage {
         return try {
-            BookPage(dto.total.toInt(), dto.page.toInt(), dto.books.map {
+            BookPage(from.total.toInt(), from.page.toInt(), from.books.map {
                 bookMapper.mapToDomain(it)
             })
         } catch (e: Exception) {

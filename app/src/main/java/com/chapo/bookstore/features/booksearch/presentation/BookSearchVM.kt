@@ -10,6 +10,7 @@ import com.chapo.bookstore.features.booksearch.domain.ObservePagesUseCase
 import com.chapo.bookstore.features.booksearch.domain.SearchUseCase
 import com.chapo.bookstore.paging.NoMorePageException
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -34,6 +35,8 @@ class BookSearchVM @Inject constructor(
     private val _nextPageLoading = MutableStateFlow(false)
     val nextPageLoading = _nextPageLoading.asStateFlow()
 
+    private var searchJob: Job? = null
+
     init {
         errorHandler.addExceptions(NoMorePageException::class, R.string.app_name)
         loadFirstPage()
@@ -57,7 +60,8 @@ class BookSearchVM @Inject constructor(
     }
 
     fun onQuerySubmitted(query: String?) {
-        viewModelScope.launch(errorHandler.globalHandler) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch(errorHandler.globalHandler) {
             _loading.emit(true)
             searchUseCase(query)
             _loading.emit(false)

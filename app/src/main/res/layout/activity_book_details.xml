@@ -88,7 +88,8 @@
                     android:gravity="bottom"
                     android:paddingHorizontal="10dp"
                     android:paddingBottom="25dp"
-                    android:textSize="28sp"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     app:layout_collapseMode="parallax"
                     tools:text="Book" />
@@ -113,21 +114,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <TextView
                 android:id="@+id/tvTitleTop"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:alpha="1"
                 android:fontFamily="sans-serif-medium"
+                android:gravity="center_horizontal"
                 android:paddingHorizontal="10dp"
-                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/ivBack"
-                app:layout_constraintEnd_toStartOf="@id/ivShare"
+                app:layout_constraintEnd_toStartOf="@id/ivFav"
                 app:layout_constraintStart_toEndOf="@id/ivBack"
                 app:layout_constraintTop_toTopOf="@id/ivBack"
                 tools:text="Title" />
+
+            <ToggleButton
+                android:id="@+id/ivFav"
+                style="@style/ImageToggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:textOff=""
+                android:textOn=""
+                app:layout_constraintEnd_toStartOf="@+id/ivShare"
+                app:layout_constraintTop_toTopOf="@+id/ivShare" />
 
             <ImageView
                 android:id="@+id/ivShare"

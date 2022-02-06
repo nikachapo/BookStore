@@ -1,6 +1,6 @@
 package com.chapo.bookstore.core.data.api.util
 
-import com.chapo.bookstore.core.data.api.dtos.mappers.ApiMapper
+import com.chapo.bookstore.core.data.Mapper
 import com.chapo.bookstore.core.domain.NetworkException
 import com.chapo.bookstore.core.domain.UnknownException
 import retrofit2.HttpException
@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ApiHelper @Inject constructor() {
 
     suspend fun <Dto : Any, Domain : Any> safeApiCall(
-        mapper: ApiMapper<Dto, Domain>,
+        mapper: Mapper<Dto, Domain>,
         call: suspend () -> Dto
     ): Domain {
         return try {

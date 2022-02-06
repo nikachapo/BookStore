@@ -2,23 +2,23 @@ package com.chapo.bookstore.features.bookdetails.data.api.dtos.mappers
 
 import com.chapo.bookstore.features.bookdetails.data.api.dtos.BookDetailsDto
 import com.chapo.bookstore.features.bookdetails.domain.models.BookDetails
-import com.chapo.bookstore.core.data.api.dtos.mappers.ApiMapper
+import com.chapo.bookstore.core.data.Mapper
 import javax.inject.Inject
 
-class BookDetailsMapper @Inject constructor() : ApiMapper<BookDetailsDto, BookDetails> {
-    override fun mapToDomain(dto: BookDetailsDto): BookDetails {
+class BookDetailsMapper @Inject constructor() : Mapper<BookDetailsDto, BookDetails> {
+    override fun mapToDomain(from: BookDetailsDto): BookDetails {
         return BookDetails(
-            title = dto.title,
-            subtitle = dto.subtitle,
-            authors = dto.authors,
-            isbn = dto.isbn,
-            pages = dto.pages,
-            year = dto.year,
-            rating = dto.rating,
-            description = dto.description,
-            price = dto.price,
-            image = dto.image,
-            url = dto.url
+            title = from.title,
+            subtitle = from.subtitle,
+            authors = from.authors,
+            isbn = from.isbn,
+            pages = from.pages,
+            year = from.year,
+            rating = from.rating,
+            description = from.description,
+            price = from.price,
+            image = from.image,
+            url = from.url
         )
     }
 }

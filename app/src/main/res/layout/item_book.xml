@@ -28,12 +28,13 @@
             android:id="@+id/ivPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_gravity="bottom|end"
             android:layout_marginBottom="4dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/bg_price"
             android:drawableStart="@drawable/ic_price"
             android:padding="6dp"
-
+            android:textStyle="bold"
             tools:text="$34" />
     </androidx.cardview.widget.CardView>
 

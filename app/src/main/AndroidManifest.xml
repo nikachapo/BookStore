@@ -17,11 +17,13 @@
         <activity
             android:name="com.chapo.bookstore.features.bookdetails.presentation.BookDetailsActivity"
             android:exported="false"
-            android:theme="@style/Theme.BookStore.Details"/>
+            android:theme="@style/Theme.BookStore.Details"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".main.MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

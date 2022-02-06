@@ -1,5 +1,6 @@
 package com.chapo.bookstore.features.bookdetails.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -28,9 +29,20 @@ class BookDetailsActivity : AppCompatActivity() {
             onBackPressed()
             finish()
         }
-        
+
+        binding.ivFav.setOnClickListener {
+            viewModel.onFavouriteCheckChanged(binding.ivFav.isChecked)
+        }
+
         binding.ivShare.setOnClickListener {
-            // TODO: 2/6/2022
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, viewModel.bookDetails.value?.url)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         }
 
         lifecycleScope.launchWhenStarted {
@@ -56,12 +68,13 @@ class BookDetailsActivity : AppCompatActivity() {
         binding.pbProgress.isVisible = false
         binding.btRetry.isVisible = false
         binding.llError.isVisible = false
+        binding.ivFav.isChecked = details.isFavourite
         binding.ivCover.load(details.image)
         binding.tvTitle.text = details.title
         binding.tvTitleTop.text = details.title
         binding.tvPrice.text = details.price
         binding.tvAuthors.text = details.authors
-        binding.ratingBar.rating = details.rating.toFloat()
+        binding.ratingBar.rating = details.rating.toFloatOrNull() ?: 0.toFloat()
         binding.tvDescription.text = details.description
     }
 
