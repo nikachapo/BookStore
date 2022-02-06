@@ -19,11 +19,12 @@ class BookDetailsVM @Inject constructor(
 
     val bookDetails = getBookDetailsUseCase.bookDetails
 
-    private var isbn: String? = null
+    private var currentIsbn: String? = null
 
     private var favouriteJob: Job? = null
 
     fun getBookDetails(isbn: String) {
+        this.currentIsbn = isbn
         launch {
             _loading.emit(true)
             getBookDetailsUseCase(isbn)
@@ -41,7 +42,7 @@ class BookDetailsVM @Inject constructor(
     }
 
     fun retry() {
-        isbn?.let { getBookDetails(it) }
+        currentIsbn?.let { getBookDetails(it) }
     }
 
 

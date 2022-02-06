@@ -20,10 +20,6 @@ class MainNavigator @Inject constructor(
         SavedBooksDestination(activity.supportFragmentManager)
     }
 
-//    fun navigateToBookDetails(isbn: String) {
-//        navigateTo(BookDetailsDestination(activity, isbn))
-//    }
-
     private fun navigateToSearchBooks() {
         navigateTo(bookSearchDestination)
     }

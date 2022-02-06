@@ -207,7 +207,7 @@
                     android:layout_marginTop="16dp"
                     android:gravity="end"
                     android:textStyle="italic"
-                    tools:text="Nika" />
+                    tools:text="Author" />
 
                 <TextView
                     android:id="@+id/tvDescription"
@@ -215,6 +215,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     tools:text="Description" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btOpenLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/open_link" />
 
             </LinearLayout>
 

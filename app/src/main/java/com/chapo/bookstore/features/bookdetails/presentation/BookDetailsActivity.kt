@@ -1,12 +1,13 @@
 package com.chapo.bookstore.features.bookdetails.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import com.chapo.bookstore.core.utils.openBrowser
+import com.chapo.bookstore.core.utils.shareUrl
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.ActivityBookDetailsBinding
 import com.chapo.bookstore.features.bookdetails.BookDetailsDestination
@@ -35,14 +36,11 @@ class BookDetailsActivity : AppCompatActivity() {
         }
 
         binding.ivShare.setOnClickListener {
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, viewModel.bookDetails.value?.url)
-                type = "text/plain"
-            }
+            shareUrl(viewModel.bookDetails.value?.url)
+        }
 
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            startActivity(shareIntent)
+        binding.btOpenLink.setOnClickListener {
+            openBrowser(viewModel.bookDetails.value?.url)
         }
 
         binding.btRetry.setOnClickListener {

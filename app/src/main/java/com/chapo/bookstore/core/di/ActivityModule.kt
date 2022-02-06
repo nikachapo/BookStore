@@ -9,7 +9,6 @@ import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Qualifier
 
-
 @Module
 @InstallIn(ActivityComponent::class)
 abstract class ActivityModule {
@@ -18,9 +17,7 @@ abstract class ActivityModule {
     @ActivityScoped
     @MainNav
     abstract fun bindDefNavigator(mainNavigator: MainNavigator): Navigator
-
 }
-
 
 @Retention(AnnotationRetention.BINARY)
 @Qualifier
