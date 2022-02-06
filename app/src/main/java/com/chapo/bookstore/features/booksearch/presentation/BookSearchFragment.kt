@@ -1,17 +1,17 @@
 package com.chapo.bookstore.features.booksearch.presentation
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chapo.bookstore.R
+import com.chapo.bookstore.core.utils.getRVAdapter
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.FragmentBookSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,10 +24,44 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
 
     private val viewModel: BookSearchVM by viewModels()
 
+    private var bookAdapter: BookAdapter? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        setHasOptionsMenu(true)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.topAppBar)
+        initBooksAdapter()
+        bindStates()
+    }
 
-        val bookAdapter = BookAdapter {
+    private fun bindStates() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.pageStateFlow.collectLatest {
+                binding.rvBooks.getRVAdapter<BookAdapter>().submitData(it)
+            }
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.errorState.collectLatest {
+                it?.let {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        bookAdapter = null
+    }
+
+    private fun initBooksAdapter() {
+        bookAdapter = BookAdapter {
 
         }
         binding.rvBooks.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -42,19 +76,6 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
                 }
             }
         })
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.pageStateFlow.collectLatest {
-                bookAdapter.submitData(it)
-            }
-        }
-        lifecycleScope.launchWhenCreated {
-            viewModel.errorState.collectLatest {
-                it?.let {
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

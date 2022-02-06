@@ -3,9 +3,11 @@ package com.chapo.bookstore.features.booksearch.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chapo.bookstore.R
-import com.chapo.bookstore.core.utils.ErrorHandler
 import com.chapo.bookstore.core.domain.models.Book
 import com.chapo.bookstore.core.domain.models.BookPage
+import com.chapo.bookstore.core.domain.repositories.IBooksRepository
+import com.chapo.bookstore.core.utils.ErrorHandler
+import com.chapo.bookstore.features.booksearch.data.SearchBooksPagingDataSource
 import com.chapo.bookstore.paging.NoMorePageException
 import com.chapo.bookstore.paging.Pager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BookSearchVM @Inject constructor(
     private val pager: Pager<Int, BookPage>,
+    private val booksRepository: IBooksRepository,
     private val errorHandler: ErrorHandler
 ) : ViewModel() {
 
@@ -46,7 +49,7 @@ class BookSearchVM @Inject constructor(
     }
 
     fun loadNextPage() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler.coroutineExceptionHandler) {
             pager.loadNextPage()
         }
     }
@@ -55,6 +58,11 @@ class BookSearchVM @Inject constructor(
     }
 
     fun onQuerySubmitted(query: String?) {
-
+        query?.let {
+            viewModelScope.launch(errorHandler.coroutineExceptionHandler) {
+                pager.pagingDataSource = SearchBooksPagingDataSource(booksRepository, query)
+                pager.loadStartingPage()
+            }
+        }
     }
 }

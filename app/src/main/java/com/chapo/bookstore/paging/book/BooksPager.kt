@@ -1,13 +1,23 @@
-package com.chapo.bookstore.paging
+package com.chapo.bookstore.paging.book
 
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
+import com.chapo.bookstore.paging.NoMorePageException
+import com.chapo.bookstore.paging.Pager
+import com.chapo.bookstore.paging.PagingDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 class BooksPager @Inject constructor(
-    private val booksRepository: IBooksRepository
+    booksRepository: IBooksRepository
 ) : Pager<Int, BookPage> {
+
+    override var pagingDataSource: PagingDataSource<Int, BookPage> =
+        BooksPagingDataSource(booksRepository)
+        set(value) {
+            pageListFlow.value.clear()
+            field = value
+        }
 
     override val cachedPagesSize: Int = 20
 
@@ -27,7 +37,7 @@ class BooksPager @Inject constructor(
     }
 
     override suspend fun loadPage(page: Int) {
-        val bookPage = booksRepository.getBooksWithPage(page)
+        val bookPage = getData(page)
         if (hasNextPage(bookPage)) throw NoMorePageException()
         addToCachedList(bookPage)
     }

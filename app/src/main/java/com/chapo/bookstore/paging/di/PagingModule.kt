@@ -2,7 +2,7 @@ package com.chapo.bookstore.paging.di
 
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
-import com.chapo.bookstore.paging.BooksPager
+import com.chapo.bookstore.paging.book.BooksPager
 import com.chapo.bookstore.paging.Pager
 import dagger.Module
 import dagger.Provides

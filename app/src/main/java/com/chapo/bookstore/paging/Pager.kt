@@ -2,9 +2,11 @@ package com.chapo.bookstore.paging
 
 import kotlinx.coroutines.flow.StateFlow
 
-interface Pager<Key : Any, PageModel : Any> {
+interface Pager<Key, PageModel> {
 
     val pageListFlow: StateFlow<MutableList<PageModel>>
+
+    var pagingDataSource: PagingDataSource<Key, PageModel>
 
     val cachedPagesSize: Int
 
@@ -24,4 +26,6 @@ interface Pager<Key : Any, PageModel : Any> {
     suspend fun loadPage(page: Key)
 
     suspend fun loadNextPage() = loadPage(nextKey)
+
+    suspend fun getData(page: Key): PageModel = pagingDataSource.getData(page)
 }
