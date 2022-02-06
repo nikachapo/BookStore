@@ -11,18 +11,30 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         app:cardBackgroundColor="?colorOutline"
-        android:layout_gravity="center_horizontal"
-        app:cardElevation="12dp"
-        app:cardCornerRadius="12dp">
+        app:cardCornerRadius="12dp"
+        app:cardElevation="12dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ivPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/bg_price"
+            android:drawableStart="@drawable/ic_price"
+            android:padding="6dp"
+
+            tools:text="$34" />
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatTextView

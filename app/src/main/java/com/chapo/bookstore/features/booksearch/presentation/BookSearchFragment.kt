@@ -25,8 +25,6 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
 
     private val viewModel: BookSearchVM by viewModels()
 
-    private var bookAdapter: BookAdapter? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -50,6 +48,7 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
                 viewModel.onQuerySubmitted(query)
                 return false
             }
+
             override fun onQueryTextChange(newText: String?) = false
         })
         super.onCreateOptionsMenu(menu, inflater)
@@ -64,6 +63,8 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
         lifecycleScope.launchWhenCreated {
             viewModel.errorState.collectLatest {
                 it?.let {
+                    binding.pbMainProgress.isVisible = false
+                    binding.pbFooterProgress.isVisible = false
                     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -81,19 +82,15 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        bookAdapter = null
-    }
-
-    private fun initBooksAdapter() {
-        bookAdapter = BookAdapter {  } // TODO: 2/6/2022
-        binding.rvBooks.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.rvBooks.adapter = bookAdapter
-        binding.rvBooks.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+    private fun initBooksAdapter() = with(binding.rvBooks) {
+        layoutManager = GridLayoutManager(requireContext(), 2)
+        adapter = BookAdapter { } // TODO: 2/6/2022
+        addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                if (!recyclerView.canScrollVertically(1) &&
+                    newState == RecyclerView.SCROLL_STATE_IDLE
+                ) {
                     // reached end
                     viewModel.loadNextPage()
                 }

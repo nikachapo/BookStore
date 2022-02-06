@@ -9,7 +9,9 @@ import coil.load
 import com.chapo.bookstore.core.domain.models.Book
 import com.chapo.bookstore.databinding.ItemBookBinding
 
-class BookAdapter(private val onBookClicked: (Book) -> Unit) :
+typealias onBookClicked = (Book) -> Unit
+
+class BookAdapter(private val onClick: onBookClicked) :
     RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
     private val diffCallback = object : DiffUtil.ItemCallback<Book>() {
@@ -44,9 +46,10 @@ class BookAdapter(private val onBookClicked: (Book) -> Unit) :
 
         fun bind(book: Book) {
             binding.root.setOnClickListener {
-                onBookClicked(book)
+                onClick(book)
             }
             binding.tvTitle.text = book.title
+            binding.ivPrice.text = book.price
             binding.ivImage.load(book.imageUrl)
         }
 
