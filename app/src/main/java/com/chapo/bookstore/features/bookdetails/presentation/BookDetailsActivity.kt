@@ -57,6 +57,14 @@ class BookDetailsActivity : AppCompatActivity() {
             }
         }
 
+        lifecycleScope.launchWhenStarted {
+            viewModel.loading.collectLatest { isLoading ->
+                binding.llError.isVisible = !isLoading
+                binding.mainContent.isVisible = !isLoading
+                binding.pbProgress.isVisible = isLoading
+            }
+        }
+
         viewModel.getBookDetails(
             BookDetailsDestination.getIsbn(intent)
         )

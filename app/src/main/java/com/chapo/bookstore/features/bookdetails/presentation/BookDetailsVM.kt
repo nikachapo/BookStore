@@ -8,6 +8,8 @@ import com.chapo.bookstore.features.bookdetails.domain.usecases.GetBookDetailsUs
 import com.chapo.bookstore.features.bookdetails.domain.usecases.OnFavouriteChangeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,6 +20,9 @@ class BookDetailsVM @Inject constructor(
     private val errorHandler: ErrorHandler
 ) : ViewModel() {
 
+    private val _loading = MutableStateFlow(false)
+    val loading = _loading.asStateFlow()
+
     val errorState = errorHandler.showErrorState
 
     val bookDetails = getBookDetailsUseCase.bookDetails
@@ -26,7 +31,9 @@ class BookDetailsVM @Inject constructor(
 
     fun getBookDetails(isbn: String) {
         viewModelScope.launch(errorHandler.globalHandler) {
+            _loading.emit(true)
             getBookDetailsUseCase(isbn)
+            _loading.emit(false)
         }
     }
 
