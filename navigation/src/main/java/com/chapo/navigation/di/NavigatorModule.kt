@@ -15,6 +15,7 @@ abstract class NavigatorModule {
 
     @Binds
     @ActivityScoped
+    @Default
     abstract fun bindDefNavigator(defaultNavigator: DefaultNavigator): Navigator
 
 }

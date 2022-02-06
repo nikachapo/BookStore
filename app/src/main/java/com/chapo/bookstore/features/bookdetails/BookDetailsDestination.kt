@@ -18,8 +18,8 @@ class BookDetailsDestination(
 
     companion object {
         private const val ARG_ISBN = "isbn"
-        fun getIsbn(intent: Intent): String? {
-            return intent.getStringExtra(ARG_ISBN)
+        fun getIsbn(intent: Intent): String {
+            return intent.getStringExtra(ARG_ISBN)!!
         }
     }
 }

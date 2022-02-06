@@ -15,8 +15,12 @@ import com.chapo.bookstore.R
 import com.chapo.bookstore.core.utils.getRVAdapter
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.FragmentBookSearchBinding
+import com.chapo.bookstore.features.bookdetails.BookDetailsDestination
+import com.chapo.navigation.di.Default
+import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
@@ -24,6 +28,10 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
     private val binding: FragmentBookSearchBinding by viewBinding(FragmentBookSearchBinding::bind)
 
     private val viewModel: BookSearchVM by viewModels()
+
+    @Inject
+    @Default
+    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -84,7 +92,9 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
 
     private fun initBooksAdapter() = with(binding.rvBooks) {
         layoutManager = GridLayoutManager(requireContext(), 2)
-        adapter = BookAdapter { } // TODO: 2/6/2022
+        adapter = BookAdapter {
+            navigator.navigateTo(BookDetailsDestination(requireContext(), it.isbn))
+        }
         addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
