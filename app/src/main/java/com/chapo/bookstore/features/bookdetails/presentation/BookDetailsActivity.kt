@@ -11,7 +11,6 @@ import com.chapo.bookstore.databinding.ActivityBookDetailsBinding
 import com.chapo.bookstore.features.bookdetails.BookDetailsDestination
 import com.chapo.bookstore.features.bookdetails.domain.models.BookDetails
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_book_details.*
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint

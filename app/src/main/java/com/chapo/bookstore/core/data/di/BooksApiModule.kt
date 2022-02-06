@@ -1,6 +1,6 @@
 package com.chapo.bookstore.core.data.di
 
-import com.chapo.bookstore.core.data.api.ApiEndPoints
+import com.chapo.bookstore.BuildConfig
 import com.chapo.bookstore.core.data.api.BooksApi
 import com.chapo.bookstore.core.data.api.interceptors.LoggingInterceptor
 import com.chapo.bookstore.core.data.api.interceptors.NetworkStatusInterceptor
@@ -30,7 +30,7 @@ object BooksApiModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
-            .baseUrl(ApiEndPoints.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
     }
@@ -49,7 +49,13 @@ object BooksApiModule {
     @Provides
     fun provideHttpLoggingInterceptor(loggingInterceptor: LoggingInterceptor): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor(loggingInterceptor)
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        if (BuildConfig.DEBUG) {
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            interceptor.setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
+
         return interceptor
     }
 }
