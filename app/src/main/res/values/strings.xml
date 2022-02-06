@@ -6,4 +6,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_book">Search Book</string>
     <string name="try_again">Try again</string>
+    <string name="no_books">No saved books</string>
 </resources>

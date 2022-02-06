@@ -2,16 +2,17 @@ package com.chapo.bookstore.features.savedbooks.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.chapo.bookstore.R
+import com.chapo.bookstore.core.presentation.BookAdapter
 import com.chapo.bookstore.core.utils.getRVAdapter
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.FragmentSavedBooksBinding
 import com.chapo.bookstore.features.bookdetails.BookDetailsDestination
-import com.chapo.bookstore.features.booksearch.presentation.BookAdapter
 import com.chapo.navigation.di.Default
 import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +40,8 @@ class SavedBooksFragment : Fragment(R.layout.fragment_saved_books) {
 
         lifecycleScope.launchWhenStarted {
             viewModel.savedBooks.collectLatest {
+                binding.pbProgress.isVisible = false
+                binding.tvNoSavedBooks.isVisible = it.isEmpty()
                 binding.rvBooks.getRVAdapter<BookAdapter>().submitData(it)
             }
         }

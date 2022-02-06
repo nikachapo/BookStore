@@ -3,8 +3,6 @@ package com.chapo.bookstore.features.savedbooks.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chapo.bookstore.core.domain.models.Book
-import com.chapo.bookstore.features.bookdetails.domain.models.BookDetails
-import com.chapo.bookstore.features.savedbooks.domain.ISavedBooksRepository
 import com.chapo.bookstore.features.savedbooks.domain.usecases.GetSavedBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +21,7 @@ class SavedBooksVM @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getSavedBooksUseCase.invoke().collectLatest {
+            getSavedBooksUseCase().collectLatest {
                 _savedBooks.emit(it)
             }
         }

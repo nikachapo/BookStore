@@ -1,4 +1,4 @@
-package com.chapo.bookstore.features.booksearch.presentation
+package com.chapo.bookstore.core.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
