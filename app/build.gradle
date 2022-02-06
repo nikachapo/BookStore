@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.squareup.sqldelight'
 }
 
 android {
@@ -72,4 +73,18 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    // SQLDelight
+    implementation "com.squareup.sqldelight:android-driver:1.5.3"
+    implementation "com.squareup.sqldelight:coroutines-extensions-jvm:1.5.3"
+
+}
+
+sqldelight {
+    BookDatabase {
+        packageName = "com.chapo.bookstore"
+        sourceFolders = ["sqldelight"]
+
+        schemaOutputDirectory = file("src/main/sqldelight/schemas")
+        verifyMigrations = true
+    }
 }

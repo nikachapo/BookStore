@@ -1,0 +1,29 @@
+CREATE TABLE bookEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    subTitle TEXT NOT NULL,
+    authors TEXT NOT NULL,
+    pages TEXT NOT NULL,
+    year TEXT NOT NULL,
+    rating TEXT NOT NULL,
+    description TEXT NOT NULL,
+    price TEXT NOT NULL,
+    image TEXT NOT NULL,
+    url TEXT NOT NULL
+);
+
+getAllBooks:
+SELECT * FROM bookEntity;
+
+getBookById:
+SELECT * FROM bookEntity
+WHERE id = :id;
+
+insertBook:
+INSERT OR REPLACE
+INTO bookEntity
+VALUES (?,?,?,?,?,?,?,?,?,?,?);
+
+deleteBookById:
+DELETE FROM bookEntity
+WHERE id = :id;
