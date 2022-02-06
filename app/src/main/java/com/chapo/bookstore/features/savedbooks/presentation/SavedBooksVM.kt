@@ -1,7 +1,7 @@
 package com.chapo.bookstore.features.savedbooks.presentation
 
 import com.chapo.bookstore.core.domain.models.Book
-import com.chapo.bookstore.core.utils.BaseViewModel
+import com.chapo.bookstore.core.presentation.BaseViewModel
 import com.chapo.bookstore.core.utils.ErrorHandler
 import com.chapo.bookstore.features.savedbooks.domain.usecases.GetSavedBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,7 +1,8 @@
-package com.chapo.bookstore.core.utils
+package com.chapo.bookstore.core.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chapo.bookstore.core.utils.ErrorHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job

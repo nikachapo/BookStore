@@ -1,7 +1,7 @@
 package com.chapo.bookstore.features.bookdetails.presentation
 
 import androidx.lifecycle.viewModelScope
-import com.chapo.bookstore.core.utils.BaseViewModel
+import com.chapo.bookstore.core.presentation.BaseViewModel
 import com.chapo.bookstore.core.utils.ErrorHandler
 import com.chapo.bookstore.features.bookdetails.domain.usecases.GetBookDetailsUseCase
 import com.chapo.bookstore.features.bookdetails.domain.usecases.OnFavouriteChangeUseCase

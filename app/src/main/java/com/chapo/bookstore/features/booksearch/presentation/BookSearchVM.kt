@@ -1,6 +1,6 @@
 package com.chapo.bookstore.features.booksearch.presentation
 
-import com.chapo.bookstore.core.utils.BaseViewModel
+import com.chapo.bookstore.core.presentation.BaseViewModel
 import com.chapo.bookstore.core.utils.ErrorHandler
 import com.chapo.bookstore.features.booksearch.domain.LoadInitialPageUseCase
 import com.chapo.bookstore.features.booksearch.domain.LoadNextPageUseCase
