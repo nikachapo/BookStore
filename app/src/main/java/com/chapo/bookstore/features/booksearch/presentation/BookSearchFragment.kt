@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -40,6 +41,20 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
         bindStates()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_appbar_nav_menu, menu)
+        val searchItem = menu.findItem(R.id.mnu_search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.onQuerySubmitted(query)
+                return false
+            }
+            override fun onQueryTextChange(newText: String?) = false
+        })
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     private fun bindStates() {
         lifecycleScope.launchWhenStarted {
             viewModel.pageStateFlow.collectLatest {
@@ -53,6 +68,17 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
                 }
             }
         }
+        lifecycleScope.launchWhenCreated {
+            viewModel.loading.collectLatest { isLoading ->
+                binding.rvBooks.isVisible = !isLoading
+                binding.pbMainProgress.isVisible = isLoading
+            }
+        }
+        lifecycleScope.launchWhenCreated {
+            viewModel.nextPageLoading.collectLatest {
+                binding.pbFooterProgress.isVisible = it
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -61,12 +87,9 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
     }
 
     private fun initBooksAdapter() {
-        bookAdapter = BookAdapter {
-
-        }
+        bookAdapter = BookAdapter {  } // TODO: 2/6/2022
         binding.rvBooks.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvBooks.adapter = bookAdapter
-
         binding.rvBooks.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -76,24 +99,5 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
                 }
             }
         })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.search_appbar_nav_menu, menu)
-        val searchItem = menu.findItem(R.id.mnu_search)
-        val searchView = searchItem.actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.onQuerySubmitted(query)
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.onQueryChanged(newText)
-                return false
-            }
-
-        })
-        super.onCreateOptionsMenu(menu, inflater)
     }
 }

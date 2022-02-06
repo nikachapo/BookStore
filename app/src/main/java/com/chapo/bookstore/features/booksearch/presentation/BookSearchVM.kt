@@ -3,32 +3,36 @@ package com.chapo.bookstore.features.booksearch.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chapo.bookstore.R
-import com.chapo.bookstore.core.domain.models.Book
-import com.chapo.bookstore.core.domain.models.BookPage
-import com.chapo.bookstore.core.domain.repositories.IBooksRepository
 import com.chapo.bookstore.core.utils.ErrorHandler
-import com.chapo.bookstore.features.booksearch.data.SearchBooksPagingDataSource
+import com.chapo.bookstore.features.booksearch.domain.LoadInitialPageUseCase
+import com.chapo.bookstore.features.booksearch.domain.LoadNextPageUseCase
+import com.chapo.bookstore.features.booksearch.domain.ObservePagesUseCase
+import com.chapo.bookstore.features.booksearch.domain.SearchUseCase
 import com.chapo.bookstore.paging.NoMorePageException
-import com.chapo.bookstore.paging.Pager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BookSearchVM @Inject constructor(
-    private val pager: Pager<Int, BookPage>,
-    private val booksRepository: IBooksRepository,
-    private val errorHandler: ErrorHandler
+    private val errorHandler: ErrorHandler,
+    private val observePagesUseCase: ObservePagesUseCase,
+    private val loadInitialPageUseCase: LoadInitialPageUseCase,
+    private val loadNextPageUseCase: LoadNextPageUseCase,
+    private val searchUseCase: SearchUseCase
 ) : ViewModel() {
 
-    private val _pageStateFlow = MutableStateFlow<List<Book>>(listOf())
-    val pageStateFlow = _pageStateFlow.asStateFlow()
+    val pageStateFlow = observePagesUseCase.pageStateFlow
 
     val errorState = errorHandler.showErrorState
+
+    private val _loading = MutableStateFlow(false)
+    val loading = _loading.asStateFlow()
+
+    private val _nextPageLoading = MutableStateFlow(false)
+    val nextPageLoading = _nextPageLoading.asStateFlow()
 
     init {
         errorHandler.addExceptions(NoMorePageException::class, R.string.app_name)
@@ -36,33 +40,27 @@ class BookSearchVM @Inject constructor(
     }
 
     private fun loadFirstPage() {
-        viewModelScope.launch(errorHandler.coroutineExceptionHandler) {
-            pager.loadStartingPage()
-            pager.pageListFlow.map { bookPage ->
-                val books = mutableListOf<Book>()
-                bookPage.forEach { books.addAll(it.books) }
-                books.toList()
-            }.collectLatest {
-                _pageStateFlow.emit(it)
-            }
+        viewModelScope.launch(errorHandler.globalHandler) {
+            _loading.emit(true)
+            loadInitialPageUseCase()
+            _loading.emit(false)
+            observePagesUseCase()
         }
     }
 
     fun loadNextPage() {
-        viewModelScope.launch(errorHandler.coroutineExceptionHandler) {
-            pager.loadNextPage()
+        viewModelScope.launch(errorHandler.globalHandler) {
+            _nextPageLoading.emit(true)
+            loadNextPageUseCase()
+            _nextPageLoading.emit(false)
         }
     }
 
-    fun onQueryChanged(newText: String?) {
-    }
-
     fun onQuerySubmitted(query: String?) {
-        query?.let {
-            viewModelScope.launch(errorHandler.coroutineExceptionHandler) {
-                pager.pagingDataSource = SearchBooksPagingDataSource(booksRepository, query)
-                pager.loadStartingPage()
-            }
+        viewModelScope.launch(errorHandler.globalHandler) {
+            _loading.emit(true)
+            searchUseCase(query)
+            _loading.emit(false)
         }
     }
 }

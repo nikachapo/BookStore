@@ -27,7 +27,7 @@ class ErrorHandler @Inject constructor(
         UnknownException::class to R.string.app_name
     )
 
-    val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+    val globalHandler = CoroutineExceptionHandler { _, exception ->
         _showErrorState.value = getErrorMessage(exception::class)
     }
 
