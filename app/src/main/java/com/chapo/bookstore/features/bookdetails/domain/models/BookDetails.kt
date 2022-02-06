@@ -12,4 +12,6 @@ data class BookDetails(
     val price: String,
     val image: String,
     val url: String
-)
+) {
+    var isFavourite: Boolean = false
+}

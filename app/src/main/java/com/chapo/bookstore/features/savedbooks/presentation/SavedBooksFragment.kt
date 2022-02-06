@@ -1,27 +1,48 @@
 package com.chapo.bookstore.features.savedbooks.presentation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.chapo.bookstore.R
+import com.chapo.bookstore.core.utils.getRVAdapter
+import com.chapo.bookstore.core.utils.viewbinding.viewBinding
+import com.chapo.bookstore.databinding.FragmentSavedBooksBinding
+import com.chapo.bookstore.features.bookdetails.BookDetailsDestination
+import com.chapo.bookstore.features.booksearch.presentation.BookAdapter
+import com.chapo.navigation.di.Default
+import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SavedBooksFragment : Fragment(R.layout.fragment_saved_books) {
 
-//    @Inject
-//    lateinit var navigator: Navigator
+    private val binding: FragmentSavedBooksBinding by viewBinding(FragmentSavedBooksBinding::bind)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private val viewModel: SavedBooksVM by viewModels()
 
-//        navigator.navigateTo(BookDetailsDestination(requireContext(), "qwe"))
+    @Inject
+    @Default
+    lateinit var navigator: Navigator
 
-        return inflater.inflate(R.layout.fragment_saved_books, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.rvBooks.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvBooks.adapter = BookAdapter {
+            navigator.navigateTo(BookDetailsDestination(requireContext(), it.isbn))
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.savedBooks.collectLatest {
+                binding.rvBooks.getRVAdapter<BookAdapter>().submitData(it)
+            }
+        }
+
     }
 
 }
