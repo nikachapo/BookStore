@@ -3,7 +3,6 @@ package com.chapo.bookstore.features.booksearch.presentation
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -44,6 +43,9 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.topAppBar)
+        binding.btRetry.setOnClickListener {
+            viewModel.loadFirstPage()
+        }
         initBooksAdapter()
         bindStates()
     }
@@ -70,16 +72,18 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
             }
         }
         lifecycleScope.launchWhenCreated {
-            viewModel.errorState.collectLatest {
-                it?.let {
+            viewModel.errorState.collectLatest { errorText ->
+                errorText?.let {
                     binding.pbMainProgress.isVisible = false
                     binding.pbFooterProgress.isVisible = false
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                    binding.llError.isVisible = true
+                    binding.tvError.text = it
                 }
             }
         }
         lifecycleScope.launchWhenCreated {
             viewModel.loading.collectLatest { isLoading ->
+                binding.llError.isVisible = false
                 binding.rvBooks.isVisible = !isLoading
                 binding.pbMainProgress.isVisible = isLoading
             }

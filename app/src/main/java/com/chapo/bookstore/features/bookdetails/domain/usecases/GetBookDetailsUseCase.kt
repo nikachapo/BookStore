@@ -9,7 +9,6 @@ import javax.inject.Inject
 class GetBookDetailsUseCase @Inject constructor(
     private val repository: IBookDetailsRepository
 ) {
-
     private val _bookDetails = MutableStateFlow<BookDetails?>(null)
     val bookDetails = _bookDetails.asStateFlow()
 

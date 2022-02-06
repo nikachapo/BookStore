@@ -1,6 +1,7 @@
 package com.chapo.bookstore.core.data.api.util
 
 import com.chapo.bookstore.core.data.Mapper
+import com.chapo.bookstore.core.data.MappingException
 import com.chapo.bookstore.core.domain.NetworkException
 import com.chapo.bookstore.core.domain.UnknownException
 import retrofit2.HttpException
@@ -19,7 +20,7 @@ class ApiHelper @Inject constructor() {
                 exception.message ?: "Code ${exception.code()}",
                 exception.code()
             )
-        } catch (e: Exception) {
+        } catch (e: MappingException) {
             throw UnknownException()
         }
     }

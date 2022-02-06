@@ -7,4 +7,6 @@
     <string name="search_book">Search Book</string>
     <string name="try_again">Try again</string>
     <string name="no_books">No saved books</string>
+    <string name="unknown_err_message">Service is unavailable</string>
+    <string name="no_internet_err_message">No connection</string>
 </resources>

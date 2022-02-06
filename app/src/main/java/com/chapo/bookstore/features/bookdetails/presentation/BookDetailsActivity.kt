@@ -45,9 +45,17 @@ class BookDetailsActivity : AppCompatActivity() {
             startActivity(shareIntent)
         }
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.errorState.collectLatest {
+        binding.btRetry.setOnClickListener {
+            viewModel.retry()
+        }
 
+        lifecycleScope.launchWhenStarted {
+            viewModel.errorState.collectLatest { errorMessage ->
+                errorMessage?.let {
+                    binding.llError.isVisible = true
+                    binding.tvError.text = it
+                    binding.pbProgress.isVisible = false
+                }
             }
         }
 

@@ -1,15 +1,12 @@
 package com.chapo.bookstore.features.bookdetails.presentation
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chapo.bookstore.core.utils.BaseViewModel
 import com.chapo.bookstore.core.utils.ErrorHandler
-import com.chapo.bookstore.features.bookdetails.domain.IBookDetailsRepository
 import com.chapo.bookstore.features.bookdetails.domain.usecases.GetBookDetailsUseCase
 import com.chapo.bookstore.features.bookdetails.domain.usecases.OnFavouriteChangeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,20 +14,17 @@ import javax.inject.Inject
 class BookDetailsVM @Inject constructor(
     private val getBookDetailsUseCase: GetBookDetailsUseCase,
     private val onFavouriteChangeUseCase: OnFavouriteChangeUseCase,
-    private val errorHandler: ErrorHandler
-) : ViewModel() {
-
-    private val _loading = MutableStateFlow(false)
-    val loading = _loading.asStateFlow()
-
-    val errorState = errorHandler.showErrorState
+    errorHandler: ErrorHandler
+) : BaseViewModel(errorHandler) {
 
     val bookDetails = getBookDetailsUseCase.bookDetails
+
+    private var isbn: String? = null
 
     private var favouriteJob: Job? = null
 
     fun getBookDetails(isbn: String) {
-        viewModelScope.launch(errorHandler.globalHandler) {
+        launch {
             _loading.emit(true)
             getBookDetailsUseCase(isbn)
             _loading.emit(false)
@@ -44,6 +38,10 @@ class BookDetailsVM @Inject constructor(
                 onFavouriteChangeUseCase(checked, it)
             }
         }
+    }
+
+    fun retry() {
+        isbn?.let { getBookDetails(it) }
     }
 
 

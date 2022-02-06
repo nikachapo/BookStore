@@ -22,9 +22,9 @@ class ErrorHandler @Inject constructor(
     val showErrorState = _showErrorState.asStateFlow()
 
     private val commonExceptions = mutableMapOf<KClass<out Throwable>, @StringRes Int>(
-        NetworkException::class to R.string.app_name,
-        NetworkUnavailableException::class to R.string.app_name,
-        UnknownException::class to R.string.app_name
+        NetworkException::class to R.string.unknown_err_message,
+        NetworkUnavailableException::class to R.string.no_internet_err_message,
+        UnknownException::class to R.string.unknown_err_message
     )
 
     val globalHandler = CoroutineExceptionHandler { _, exception ->

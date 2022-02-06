@@ -28,6 +28,34 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <LinearLayout
+        android:id="@+id/llError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        tools:visibility="visible"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            tools:text="Check connection" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="?colorSecondary"
+            android:letterSpacing="0"
+            android:text="@string/try_again" />
+
+    </LinearLayout>
+
     <ProgressBar
         android:id="@+id/pbMainProgress"
         android:layout_width="wrap_content"

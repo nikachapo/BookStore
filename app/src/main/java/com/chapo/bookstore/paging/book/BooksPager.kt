@@ -2,7 +2,6 @@ package com.chapo.bookstore.paging.book
 
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
-import com.chapo.bookstore.paging.NoMorePageException
 import com.chapo.bookstore.paging.Pager
 import com.chapo.bookstore.paging.PagingDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,13 +32,14 @@ class BooksPager @Inject constructor(
         get() = ++currentKey
 
     override fun hasNextPage(page: BookPage): Boolean {
-        return page.books.isEmpty()
+        return page.books.isNotEmpty()
     }
 
     override suspend fun loadPage(page: Int) {
         val bookPage = getData(page)
-        if (hasNextPage(bookPage)) throw NoMorePageException()
-        addToCachedList(bookPage)
+        if (hasNextPage(bookPage)) {
+            addToCachedList(bookPage)
+        }
     }
 
     private suspend fun addToCachedList(bookPage: BookPage) {
