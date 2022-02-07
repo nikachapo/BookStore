@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.chapo.bookstore.R
+import com.chapo.bookstore.core.di.MainNav
 import com.chapo.bookstore.core.presentation.BookAdapter
 import com.chapo.bookstore.core.utils.getRVAdapter
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
@@ -27,7 +28,7 @@ class SavedBooksFragment : Fragment(R.layout.fragment_saved_books) {
     private val viewModel: SavedBooksVM by viewModels()
 
     @Inject
-    @Default
+    @MainNav
     lateinit var navigator: Navigator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

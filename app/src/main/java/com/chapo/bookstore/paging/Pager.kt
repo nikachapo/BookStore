@@ -1,31 +1,50 @@
 package com.chapo.bookstore.paging
 
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
-interface Pager<Key, PageModel> {
+abstract class Pager<Key, PageModel>(pagingDataSource: PagingDataSource<Key, PageModel>) {
 
-    val pageListFlow: StateFlow<MutableList<PageModel>>
+    private val _pageListFlow: MutableStateFlow<MutableList<PageModel>> = MutableStateFlow(mutableListOf())
+    val pageListFlow = _pageListFlow.asStateFlow()
 
-    var pagingDataSource: PagingDataSource<Key, PageModel>
+    var pagingDataSource: PagingDataSource<Key, PageModel> = pagingDataSource
+        set(value) {
+            _pageListFlow.value.clear()
+            field = value
+        }
 
-    val cachedPagesSize: Int
+    abstract val cachedPagesSize: Int
 
-    val startingKey: Key
+    abstract val startingKey: Key
 
-    var currentKey: Key
+    abstract var currentKey: Key
 
-    val nextKey: Key
+    abstract val nextKey: Key
 
     val isSpace: Boolean
-        get() = pageListFlow.value.size < cachedPagesSize
+        get() = _pageListFlow.value.size < cachedPagesSize
 
-    fun hasNextPage(page: PageModel): Boolean
+    abstract fun hasNextPage(page: PageModel): Boolean
 
     suspend fun loadStartingPage() = loadPage(startingKey)
 
-    suspend fun loadPage(page: Key)
+    open suspend fun loadPage(page: Key) {
+        val pageData = getData(page)
+        if (hasNextPage(pageData)) {
+            addToCachedList(pageData)
+        }
+    }
 
     suspend fun loadNextPage() = loadPage(nextKey)
 
-    suspend fun getData(page: Key): PageModel = pagingDataSource.getData(page)
+    open suspend fun getData(page: Key): PageModel = pagingDataSource.getData(page)
+
+    private suspend fun addToCachedList(page: PageModel) {
+        val list = mutableListOf<PageModel>()
+        list.addAll(_pageListFlow.value)
+        if (!isSpace) list.removeFirst()
+        list.add(page)
+        _pageListFlow.emit(list)
+    }
 }

@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chapo.bookstore.R
+import com.chapo.bookstore.core.di.MainNav
 import com.chapo.bookstore.core.presentation.BookAdapter
 import com.chapo.bookstore.core.utils.getRVAdapter
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
@@ -30,7 +31,7 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
     private val viewModel: BookSearchVM by viewModels()
 
     @Inject
-    @Default
+    @MainNav
     lateinit var navigator: Navigator
 
     override fun onCreateView(
