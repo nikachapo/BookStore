@@ -42,7 +42,4 @@ dependencies {
     // Support
     implementation(SupportDependencies.APPCOMPAT)
 
-    // Testing
-    testImplementation(TestDependencies.JUNIT4)
-    androidTestImplementation(AndroidTestDependencies.EXT_JUNIT)
 }
