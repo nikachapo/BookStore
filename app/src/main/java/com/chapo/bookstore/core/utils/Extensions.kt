@@ -15,6 +15,9 @@ fun View.hideKeyboard() {
     }
 }
 
+/**
+ * For adapters to avoid memory leaks in Fragments
+ */
 inline fun <reified T : RecyclerView.Adapter<*>> RecyclerView.getRVAdapter(): T {
     return this.adapter as T
 }

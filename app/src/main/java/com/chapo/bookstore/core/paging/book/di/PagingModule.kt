@@ -1,8 +1,8 @@
-package com.chapo.bookstore.paging.di
+package com.chapo.bookstore.core.paging.book.di
 
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
-import com.chapo.bookstore.paging.book.BooksPager
+import com.chapo.bookstore.core.paging.book.BooksPager
 import com.chapo.paging.Pager
 import dagger.Module
 import dagger.Provides

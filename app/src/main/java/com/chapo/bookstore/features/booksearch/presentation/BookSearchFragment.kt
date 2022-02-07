@@ -2,10 +2,8 @@ package com.chapo.bookstore.features.booksearch.presentation
 
 import android.os.Bundle
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,9 +22,6 @@ import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
-import androidx.core.content.ContextCompat.getSystemService
-
-
 
 
 @AndroidEntryPoint
@@ -59,6 +54,11 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_appbar_nav_menu, menu)
+        setUpSearchMenu(menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun setUpSearchMenu(menu: Menu) {
         val searchItem = menu.findItem(R.id.mnu_search)
         val searchView = searchItem.actionView as SearchView
         searchView.queryHint = getString(R.string.search_hint)
@@ -71,7 +71,6 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
 
             override fun onQueryTextChange(newText: String?) = false
         })
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun bindStates() {
@@ -114,8 +113,7 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) &&
                     newState == RecyclerView.SCROLL_STATE_IDLE
-                ) {
-                    // reached end
+                ) { // reached end
                     viewModel.loadNextPage()
                 }
             }

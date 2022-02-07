@@ -25,28 +25,12 @@ class BookDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setListeners()
+        bindStates()
+        viewModel.getBookDetails(BookDetailsDestination.getIsbn(intent))
+    }
 
-        binding.ivBack.setOnClickListener {
-            onBackPressed()
-            finish()
-        }
-
-        binding.ivFav.setOnClickListener {
-            viewModel.onFavouriteCheckChanged(binding.ivFav.isChecked)
-        }
-
-        binding.ivShare.setOnClickListener {
-            shareUrl(viewModel.bookDetails.value?.url)
-        }
-
-        binding.btOpenLink.setOnClickListener {
-            openBrowser(viewModel.bookDetails.value?.url)
-        }
-
-        binding.btRetry.setOnClickListener {
-            viewModel.retry()
-        }
-
+    private fun bindStates() {
         lifecycleScope.launchWhenStarted {
             viewModel.errorState.collectLatest { errorMessage ->
                 errorMessage?.let {
@@ -70,11 +54,29 @@ class BookDetailsActivity : AppCompatActivity() {
                 binding.pbProgress.isVisible = isLoading
             }
         }
+    }
 
-        viewModel.getBookDetails(
-            BookDetailsDestination.getIsbn(intent)
-        )
+    private fun setListeners() {
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+            finish()
+        }
 
+        binding.ivFav.setOnClickListener {
+            viewModel.onFavouriteCheckChanged(binding.ivFav.isChecked)
+        }
+
+        binding.ivShare.setOnClickListener {
+            shareUrl(viewModel.bookDetails.value?.url)
+        }
+
+        binding.btOpenLink.setOnClickListener {
+            openBrowser(viewModel.bookDetails.value?.url)
+        }
+
+        binding.btRetry.setOnClickListener {
+            viewModel.retry()
+        }
     }
 
     private fun fillDetails(details: BookDetails) {
@@ -91,6 +93,5 @@ class BookDetailsActivity : AppCompatActivity() {
         binding.ratingBar.rating = details.rating.toFloatOrNull() ?: 0.toFloat()
         binding.tvDescription.text = details.description
     }
-
 
 }

@@ -2,8 +2,8 @@ package com.chapo.bookstore.features.booksearch.domain
 
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
+import com.chapo.bookstore.core.paging.book.BooksPager
 import com.chapo.bookstore.features.booksearch.data.SearchBooksPagingDataSource
-import com.chapo.bookstore.paging.book.BooksPager
 import com.chapo.paging.Pager
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -45,6 +45,6 @@ class SearchUseCaseTest {
         coVerify { pager.loadStartingPage() }
         coEvery { pager.loadStartingPage() } returns Unit // reset mock method to catch second call
         searchUseCase("Android")
-        coVerify() { pager.loadStartingPage() }
+        coVerify { pager.loadStartingPage() }
     }
 }

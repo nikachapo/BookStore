@@ -14,7 +14,6 @@ import com.chapo.bookstore.core.utils.getRVAdapter
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.FragmentSavedBooksBinding
 import com.chapo.bookstore.features.bookdetails.BookDetailsDestination
-import com.chapo.navigation.di.Default
 import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -33,12 +32,18 @@ class SavedBooksFragment : Fragment(R.layout.fragment_saved_books) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initBooksAdapter()
+        bindStates()
+    }
 
+    private fun initBooksAdapter() {
         binding.rvBooks.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvBooks.adapter = BookAdapter {
             navigator.navigateTo(BookDetailsDestination(requireContext(), it.isbn))
         }
+    }
 
+    private fun bindStates() {
         lifecycleScope.launchWhenStarted {
             viewModel.savedBooks.collectLatest {
                 binding.pbProgress.isVisible = false
@@ -46,7 +51,6 @@ class SavedBooksFragment : Fragment(R.layout.fragment_saved_books) {
                 binding.rvBooks.getRVAdapter<BookAdapter>().submitData(it)
             }
         }
-
     }
 
 }

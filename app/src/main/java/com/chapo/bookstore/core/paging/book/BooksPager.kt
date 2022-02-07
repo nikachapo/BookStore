@@ -1,4 +1,4 @@
-package com.chapo.bookstore.paging.book
+package com.chapo.bookstore.core.paging.book
 
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
