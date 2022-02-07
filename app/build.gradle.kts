@@ -85,11 +85,11 @@ dependencies {
 
     // Testing
     testImplementation(TestDependencies.JUNIT4)
+    testImplementation(TestDependencies.TEST_COROUTINES)
+    testImplementation(TestDependencies.MOCKK)
+    testImplementation(TestDependencies.TEST_SQLDELIGHT)
     androidTestImplementation(AndroidTestDependencies.EXT_JUNIT)
     androidTestImplementation(AndroidTestDependencies.ESPRESSO_CORE)
-
-    // Debug
-    // debugImplementation(Dependencies.LEAKCANARY)
 }
 
 sqldelight {

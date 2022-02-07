@@ -35,6 +35,10 @@ object Versions {
 
     const val JUNIT4: String = "4.13.2"
 
+    const val COROUTINES: String = "1.6.0"
+
+    const val MOCKK: String = "1.12.2"
+
     const val EXT_JUNIT: String = "1.1.3"
 
     const val ESPRESSO_CORE: String = "3.4.0"
