@@ -1,9 +1,10 @@
 package com.chapo.bookstore.util
+
 import com.chapo.bookstore.core.utils.stringreshelper.StringResHelper
 
 class TestStringResHelper : StringResHelper {
 
-    var testValue = "test"
+    var testValue = "paging"
 
     override fun getString(resId: Int) = testValue
 

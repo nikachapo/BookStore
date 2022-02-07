@@ -16,4 +16,5 @@ dependencies {
 
     // Testing
     testImplementation(TestDependencies.JUNIT4)
+    testImplementation(TestDependencies.TEST_COROUTINES)
 }

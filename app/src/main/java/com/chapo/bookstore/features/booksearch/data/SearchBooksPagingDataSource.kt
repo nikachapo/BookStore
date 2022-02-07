@@ -7,8 +7,8 @@ import com.chapo.paging.PagingDataSource
 class SearchBooksPagingDataSource(
     private val repository: IBooksRepository,
     private val query: String
-) :
-    PagingDataSource<Int, BookPage> {
+) : PagingDataSource<Int, BookPage> {
+
     override suspend fun getData(page: Int): BookPage {
         return repository.searchBook(page, query)
     }

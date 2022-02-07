@@ -5,7 +5,8 @@ import kotlinx.coroutines.flow.asStateFlow
 
 abstract class Pager<Key, PageModel>(pagingDataSource: PagingDataSource<Key, PageModel>) {
 
-    private val _pageListFlow: MutableStateFlow<MutableList<PageModel>> = MutableStateFlow(mutableListOf())
+    private val _pageListFlow: MutableStateFlow<MutableList<PageModel>> =
+        MutableStateFlow(mutableListOf())
     val pageListFlow = _pageListFlow.asStateFlow()
 
     var pagingDataSource: PagingDataSource<Key, PageModel> = pagingDataSource
@@ -22,16 +23,16 @@ abstract class Pager<Key, PageModel>(pagingDataSource: PagingDataSource<Key, Pag
 
     abstract val nextKey: Key
 
-    val isSpace: Boolean
+    private val isSpace: Boolean
         get() = _pageListFlow.value.size < cachedPagesSize
 
-    abstract fun hasNextPage(page: PageModel): Boolean
+    abstract fun isNotEmptyPage(page: PageModel): Boolean
 
     suspend fun loadStartingPage() = loadPage(startingKey)
 
     open suspend fun loadPage(page: Key) {
         val pageData = getData(page)
-        if (hasNextPage(pageData)) {
+        if (isNotEmptyPage(pageData)) {
             addToCachedList(pageData)
         }
     }

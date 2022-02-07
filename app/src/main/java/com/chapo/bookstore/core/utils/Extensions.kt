@@ -3,7 +3,17 @@ package com.chapo.bookstore.core.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
+
+fun View.hideKeyboard() {
+    findFocus()?.let { view ->
+        val imm = getSystemService(context, InputMethodManager::class.java)
+        imm?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+}
 
 inline fun <reified T : RecyclerView.Adapter<*>> RecyclerView.getRVAdapter(): T {
     return this.adapter as T

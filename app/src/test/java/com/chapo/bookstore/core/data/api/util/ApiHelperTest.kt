@@ -7,6 +7,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.HttpException
@@ -26,7 +27,7 @@ class ApiHelperTest {
                 }
             }
         }, suspend {
-            "test"
+            "paging"
         })
     }
 
@@ -40,7 +41,7 @@ class ApiHelperTest {
             throw HttpException(
                 Response.error<ResponseBody>(
                     500,
-                    ResponseBody.create("plain/text".toMediaTypeOrNull(), "")
+                    "".toResponseBody("plain/text".toMediaTypeOrNull())
                 )
             )
         })

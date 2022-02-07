@@ -2,8 +2,10 @@ package com.chapo.bookstore.features.booksearch.presentation
 
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +16,7 @@ import com.chapo.bookstore.R
 import com.chapo.bookstore.core.di.MainNav
 import com.chapo.bookstore.core.presentation.BookAdapter
 import com.chapo.bookstore.core.utils.getRVAdapter
+import com.chapo.bookstore.core.utils.hideKeyboard
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.FragmentBookSearchBinding
 import com.chapo.bookstore.features.bookdetails.BookDetailsDestination
@@ -21,6 +24,10 @@ import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
+import androidx.core.content.ContextCompat.getSystemService
+
+
+
 
 @AndroidEntryPoint
 class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
@@ -54,9 +61,11 @@ class BookSearchFragment : Fragment(R.layout.fragment_book_search) {
         inflater.inflate(R.menu.search_appbar_nav_menu, menu)
         val searchItem = menu.findItem(R.id.mnu_search)
         val searchView = searchItem.actionView as SearchView
+        searchView.queryHint = getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.onQuerySubmitted(query)
+                searchView.hideKeyboard()
                 return false
             }
 

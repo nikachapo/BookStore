@@ -18,7 +18,7 @@ class BooksPager @Inject constructor(
     override val nextKey: Int
         get() = ++currentKey
 
-    override fun hasNextPage(page: BookPage): Boolean {
+    override fun isNotEmptyPage(page: BookPage): Boolean {
         return page.books.isNotEmpty()
     }
 

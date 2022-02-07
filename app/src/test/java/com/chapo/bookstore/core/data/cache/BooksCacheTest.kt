@@ -15,7 +15,6 @@ import org.junit.Test
 class BooksCacheTest {
 
     private lateinit var booksCache: IBooksCache
-
     private lateinit var queries: BookEntityQueries
     private val driver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
     private val database = BookDatabase(driver)

@@ -10,4 +10,5 @@
     <string name="unknown_err_message">Service is unavailable</string>
     <string name="no_internet_err_message">No connection</string>
     <string name="open_link">Open link</string>
+    <string name="search_hint">Data structures</string>
 </resources>
