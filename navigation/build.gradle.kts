@@ -45,5 +45,4 @@ dependencies {
     // Testing
     testImplementation(TestDependencies.JUNIT4)
     androidTestImplementation(AndroidTestDependencies.EXT_JUNIT)
-    androidTestImplementation(AndroidTestDependencies.ESPRESSO_CORE)
 }

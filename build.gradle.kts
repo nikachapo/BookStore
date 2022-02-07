@@ -12,6 +12,7 @@ buildscript {
         classpath(Build.KOTLIN_GRADLE_PLUGIN)
         classpath(Build.HILT_GRADLE_PLUGIN)
         classpath(Build.SQLDELIGHT_PLUGIN)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
     }
 }
 

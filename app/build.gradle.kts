@@ -58,6 +58,8 @@ android {
 
 dependencies {
     implementation(project(":navigation"))
+    implementation(project(":paging"))
+
 
     // Dependencies
     implementation(Dependencies.KTX_CORE)
@@ -89,7 +91,6 @@ dependencies {
     testImplementation(TestDependencies.MOCKK)
     testImplementation(TestDependencies.TEST_SQLDELIGHT)
     androidTestImplementation(AndroidTestDependencies.EXT_JUNIT)
-    androidTestImplementation(AndroidTestDependencies.ESPRESSO_CORE)
 }
 
 sqldelight {

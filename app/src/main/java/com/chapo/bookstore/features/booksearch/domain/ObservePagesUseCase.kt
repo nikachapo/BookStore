@@ -2,7 +2,7 @@ package com.chapo.bookstore.features.booksearch.domain
 
 import com.chapo.bookstore.core.domain.models.Book
 import com.chapo.bookstore.core.domain.models.BookPage
-import com.chapo.bookstore.paging.Pager
+import com.chapo.paging.Pager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest

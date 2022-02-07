@@ -17,7 +17,6 @@ import com.chapo.bookstore.core.utils.getRVAdapter
 import com.chapo.bookstore.core.utils.viewbinding.viewBinding
 import com.chapo.bookstore.databinding.FragmentBookSearchBinding
 import com.chapo.bookstore.features.bookdetails.BookDetailsDestination
-import com.chapo.navigation.di.Default
 import com.chapo.navigation.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

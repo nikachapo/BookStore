@@ -2,7 +2,7 @@ package com.chapo.bookstore.paging.book
 
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
-import com.chapo.bookstore.paging.Pager
+import com.chapo.paging.Pager
 import javax.inject.Inject
 
 class BooksPager @Inject constructor(

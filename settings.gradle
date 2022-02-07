@@ -1,3 +1,4 @@
 rootProject.name = "BookStore"
 include ':app'
 include ':navigation'
+include ':paging'

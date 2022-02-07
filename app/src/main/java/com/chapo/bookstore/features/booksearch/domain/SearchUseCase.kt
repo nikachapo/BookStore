@@ -3,7 +3,7 @@ package com.chapo.bookstore.features.booksearch.domain
 import com.chapo.bookstore.core.domain.models.BookPage
 import com.chapo.bookstore.core.domain.repositories.IBooksRepository
 import com.chapo.bookstore.features.booksearch.data.SearchBooksPagingDataSource
-import com.chapo.bookstore.paging.Pager
+import com.chapo.paging.Pager
 import javax.inject.Inject
 
 class SearchUseCase @Inject constructor(

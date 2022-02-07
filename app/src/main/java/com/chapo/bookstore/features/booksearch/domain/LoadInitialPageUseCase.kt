@@ -1,7 +1,7 @@
 package com.chapo.bookstore.features.booksearch.domain
 
 import com.chapo.bookstore.core.domain.models.BookPage
-import com.chapo.bookstore.paging.Pager
+import com.chapo.paging.Pager
 import javax.inject.Inject
 
 class LoadInitialPageUseCase @Inject constructor(

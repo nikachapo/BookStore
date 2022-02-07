@@ -1,4 +1,4 @@
-package com.chapo.bookstore.paging
+package com.chapo.paging
 
 interface PagingDataSource<Key, PageModel> {
 

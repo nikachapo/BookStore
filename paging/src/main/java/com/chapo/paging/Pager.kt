@@ -1,4 +1,4 @@
-package com.chapo.bookstore.paging
+package com.chapo.paging
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

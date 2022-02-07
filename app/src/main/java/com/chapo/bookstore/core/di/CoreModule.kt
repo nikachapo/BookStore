@@ -16,9 +16,6 @@ import dagger.hilt.components.SingletonComponent
 abstract class CoreModule {
 
     @Binds
-    abstract fun bindNavigator(navigator: DefaultNavigator): Navigator
-
-    @Binds
     abstract fun bindDispatchersProvider(dispatchersProvider: CoroutineDispatchersProvider): DispatchersProvider
 
     @Binds
