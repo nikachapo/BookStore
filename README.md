@@ -35,3 +35,6 @@ The module also contains tests for Pager.
 - Coil for loading images
 - MockK for Tests
 - JUnit4
+
+
+<img src="https://user-images.githubusercontent.com/44478420/152928465-3ad27761-e515-44d0-bacf-6882cc4dc44a.gif" data-canonical-src="https://user-images.githubusercontent.com/44478420/152928465-3ad27761-e515-44d0-bacf-6882cc4dc44a.gif" width="280" height="600" />
